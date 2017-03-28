@@ -49,3 +49,39 @@ user { 'root':
 
 **Note**
 - '=>' is pronounced 'hash rocket'
+
+3. Working with manifests and classes
+
+```
+~ $ cd /etc/puppetlabs/code/environments/production/modules
+~ $ mkdir -p cowsayings/{manifests,examples}
+~ $ vim cowsayings/manifests/cowsay.pp
+```
+
+- Now modify the puppet manifest so that it contains this class definition
+```bash
+class cowsayings::cowsay {
+  package { 'cowsay':
+    ensure   => present,
+    provider => 'gem',
+  }
+}
+```
+- We can also validate the manifest using the 'puppet parser' tool
+```
+~ $ puppet parser validate cowsayings/manifests/cowsay.pp
+```
+- This is simply a class defintion, to declare it we would do the following:
+```
+~ $ vim cowsayings/examples/cowsay.pp
+```
+
+* In order to declare the cowsay class, we would use the 'include' keyword, add the following code snippet to the file: `include cowsayings::cowsay`
+* Now to simply do a dry run, meaning that we would see only that changes that would be made on the system, we would add the --noop flag to the apply command
+
+```
+~ $ puppet apply --noop cowsayings/examples/cowsay.pp
+# or to simply apply it, remove the flag
+~ $ puppet apply cowsayings/examples/cowsay.pp
+```
+
