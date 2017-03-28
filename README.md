@@ -85,3 +85,19 @@ class cowsayings::cowsay {
 ~ $ puppet apply cowsayings/examples/cowsay.pp
 ```
 
+4. How to remove packages using `puppet resource`
+
+```
+~ $ puppet resource package cowsay ensure=absent provider=gem
+```
+
+
+
+
+---
+**Notes:**
+```
+A class is a collection of related resources and other classes which, once defined, can be declared as a single unit. Puppet classes are also singleton, which means that unlike classes in object oriented programming, a Puppet class can only be declared a single time on a given node.
+
+A manifest is a file containing Puppet code, and appended with the .pp extension. In this quest, we used manifests in the ./manifests directory each to define a single class, and used a corresponding test manifest in the ./examples directory to declare each of those classes.
+```
